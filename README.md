@@ -131,3 +131,7 @@ Feel free to contribute by improving the model, adding new features, or optimizi
 - Enhanced DataLoader setup for more efficient training.
 - Improved training performance with refined hyperparameters.
 
+## 🔗 **References**
+- PyTorch Documentation: https://pytorch.org/docs/stable/index.html
+- K-Means Clustering: https://scikit-learn.org/stable/modules/clustering.html#k-means
+- Deep Learning with PyTorch: https://pytorch.org/tutorials/
