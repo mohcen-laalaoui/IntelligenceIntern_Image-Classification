@@ -2,7 +2,6 @@
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 
-
 ## 📌 Project Overview
 **IntelligenceIntern_Image-Classification** is a deep learning project that builds an **image classification model** from scratch using **PyTorch**. The project includes **data preprocessing, model development, training, and evaluation** to classify images into two categories. This project is designed to handle unlabeled image datasets by applying clustering techniques to create class labels before training a Convolutional Neural Network (CNN).
 
@@ -11,7 +10,7 @@
 - 🧠 **CNN Model Development**: Implements a deep learning model using **PyTorch** for classification.  
 - 🎯 **Training & Optimization**: Uses **CrossEntropyLoss** and **Adam optimizer** to improve accuracy.  
 - 📊 **Evaluation**: Measures model performance using accuracy and loss metrics.  
-- ⚡ **Deployment Ready**: The trained model can be integrated into real-world applications
+- ⚡ **Deployment Ready**: The trained model can be integrated into real-world applications.
 
 ## 📂 Project Structure
 ```
@@ -37,7 +36,7 @@ IntelligenceIntern_Image-Classification/
    pip install -r requirements.txt
    ```
 
-## 🏗️ Model Development  
+## 🏠 Model Development  
 This project uses a **Convolutional Neural Network (CNN)** for image classification.  
 If the dataset is **unlabeled**, K-Means clustering is applied to automatically generate two classes before training.
 
@@ -49,10 +48,6 @@ If the dataset is **unlabeled**, K-Means clustering is applied to automatically 
 ### 🔹 CNN Architecture
 The Convolutional Neural Network (CNN) is designed with multiple convolutional layers, ReLU activation, max pooling, and fully connected layers.  
 ```python
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
 class BloodCellCNN(nn.Module):
     def __init__(self):
         super(BloodCellCNN, self).__init__()
@@ -61,15 +56,16 @@ class BloodCellCNN(nn.Module):
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)
         self.fc1 = nn.Linear(64 * 56 * 56, 128)
+        self.dropout = nn.Dropout(0.6)  # Updated Dropout from 0.5 to 0.6
         self.fc2 = nn.Linear(128, 2)
-        self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):
         x = self.pool(self.relu(self.conv1(x)))
         x = self.pool(self.relu(self.conv2(x)))
         x = x.view(x.size(0), -1)
         x = self.relu(self.fc1(x))
-        x = self.softmax(self.fc2(x))
+        x = self.dropout(x)
+        x = self.fc2(x)
         return x
 ```
 
@@ -83,7 +79,7 @@ class BloodCellCNN(nn.Module):
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-for epoch in range(10):  # Number of epochs
+for epoch in range(10):  
     model.train()
     for images, labels in train_loader:
         optimizer.zero_grad()
@@ -96,8 +92,6 @@ for epoch in range(10):  # Number of epochs
 ### 🔹 Model Evaluation
 After training, the model is evaluated on the test dataset using accuracy, precision, recall, and loss metrics.
 ```python
-from sklearn.metrics import accuracy_score
-
 model.eval()
 correct = 0
 total = 0
@@ -122,13 +116,18 @@ print(f'Accuracy: {accuracy:.2f}%')
 - 🖼️ **Expand dataset** to handle more image classes.  
 - 🚀 **Deploy model** using Flask, FastAPI, or streamlit for real-world applications.  
 
-4. **Use the trained model** for inference.
-
 ## 🤝 Contributing
-Feel free to contribute by improving the model, adding new features or optimizing performance
+Feel free to contribute by improving the model, adding new features, or optimizing performance.
+
 **Steps to contribute:**
 1. Fork the repository.  
 2. Create a new branch (`git checkout -b new-feature`).  
 3. Commit your changes (`git commit -m "Add new feature"`).  
 4. Push to your fork and submit a pull request.  
+
+---
+**Recent Updates:**
+- Increased dropout from `0.5` to `0.6` for better regularization.
+- Enhanced DataLoader setup for more efficient training.
+- Improved training performance with refined hyperparameters.
 
